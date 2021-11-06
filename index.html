@@ -162,19 +162,28 @@
       // It's easier to add new items to an array, but it's easier to query technologies from a dictionary.
       // So here we create an array, then on startup transform the data to a `{ "character": [technologies] }` format.
       const stackItems = transformToMap([
+        // Business stack
         "Excel",
         "Word",
         "Powerpoint",
 
+        // Container stuff
         "Docker",
         "Helm",
         "Kubernetes",
         "Istio",
 
+        // Cloud Providers
+        "Azure",
+        "Google Cloud",
+        "AWS",
+
+        // Web Servers
         "Apache",
         "IIS",
         "NGINX",
 
+        // Languages
         "C",
         "C#",
         "C++",
@@ -202,32 +211,35 @@
         "Elixir",
         "Visual Basic",
         "Typescript",
+        "QBasic",
 
+        // Terminal
         "Bash",
         "Powershell",
 
-        "Azure",
-        "Google Cloud",
-        "AWS",
-
+        // Data-languages
         "TOML",
         "YAML",
         "JSON",
         "XML",
 
+        // Frameworks
         "NodeJS",
         "React",
         "Vue",
         "Flask",
         "Django",
         "Angular",
+        "Svelte",
         "Laravel",
         "Phoenix",
         "ASP.NET",
         "Spring",
+        "Godot",
         "Unity",
         "Unreal Engine 4",
 
+        // Databases
         "MongoDB",
         "MySQL",
         "CouchDB",
@@ -246,6 +258,7 @@
         "Neo4j",
         "DGraph",
 
+        // Operating Systems
         "Linux",
         "Windows",
         "MacOS",
