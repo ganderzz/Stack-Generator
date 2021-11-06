@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Stack Generator</title>
+
+    <link
+      href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+
+    <style>
+      body {
+        background: #1d1f26;
+        color: #fff;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="flex justify-center items-center mt-10 mb-8">
+      <h1 class="text-5xl font-bold">Stack Generator</h1>
+    </header>
+
+    <form id="input-form" class="flex justify-center items-center gap-1">
+      <input
+        type="text"
+        placeholder="Enter acronym here..."
+        style="background: #4b464f"
+        class="p-2 border border-gray-400 rounded w-1/2"
+      />
+
+      <button
+        type="submit"
+        class="
+          border border-blue-700
+          rounded
+          px-4
+          py-2
+          bg-blue-600
+          text-white
+          shadow-sm
+        "
+      >
+        Get it
+      </button>
+    </form>
+
+    <section
+      id="result"
+      class="mt-16 flex justify-center items-center"
+    ></section>
+
+    <script>
+      function transformToMap(arr) {
+        return arr.reduce((accu, current) => {
+          const startingLetter = current[0].toLocaleLowerCase();
+
+          if (accu[startingLetter]) {
+            return {
+              ...accu,
+              [startingLetter]: [...accu[startingLetter], current],
+            };
+          }
+
+          return {
+            ...accu,
+            [startingLetter]: [current],
+          };
+        }, {});
+      }
+
+      // List of all stack technologies.
+      // It's easier to add new items to an array, but it's easier to query technologies from a dictionary.
+      // So here we create an array, then on startup transform the data to a `{ "character": [technologies] }` format.
+      const stackItems = transformToMap([
+        "Excel",
+        "Word",
+        "Powerpoint",
+
+        "Docker",
+        "Helm",
+        "Kubernetes",
+        "Istio",
+
+        "Apache",
+        "IIS",
+        "NGINX",
+
+        "C",
+        "C#",
+        "C++",
+        "Java",
+        "Python",
+        "DLang",
+        "PHP",
+        "Swift",
+        "JavaScript",
+        "COBOL",
+        "Haskell",
+        "Go",
+        "CSS",
+        "HTML",
+        "Kotlin",
+        "Groovy",
+        "OCaml",
+        "Zig",
+        "Nim",
+        "Ruby",
+        "Crystal",
+        "F#",
+        "Basic",
+        "Visual Basic",
+        "Typescript",
+
+        "Bash",
+        "Powershell",
+
+        "Azure",
+        "Google Cloud",
+        "AWS",
+
+        "TOML",
+        "YAML",
+        "JSON",
+        "XML",
+
+        "NodeJS",
+        "React",
+        "Vue",
+        "Angular",
+        "Laravel",
+
+        "MongoDB",
+        "MySQL",
+        "CouchDB",
+        "Redis",
+        "MariaDB",
+        "SQLite",
+        "Elasticsearch",
+        "Kabana",
+        "Cassandra",
+        "Microsoft Access",
+        "Splunk",
+        "SQLServer",
+        "Oracle DB",
+        "PostgresSQL",
+        "NoSQL",
+        "Neo4j",
+        "DGraph",
+
+        "Linux",
+        "Windows",
+        "MacOS",
+      ]);
+
+      window.onload = function () {
+        const resultElem = document.querySelector("#result");
+        const formElem = document.querySelector("#input-form");
+
+        /**
+         * Handles generating a random stack once the form is submitted.
+         */
+        formElem.addEventListener("submit", (e) => {
+          e.preventDefault();
+
+          // Gets the text input content in the form.
+          const input = [...e.target.elements]
+            .filter((p) => p.type === "text")
+            ?.map((p) => p.value.toLocaleLowerCase())?.[0];
+
+          if (!input) {
+            alert("Invalid input.");
+            return;
+          }
+
+          // Grab a technology based on the characters of the text input.
+          const chars = input.split("").map((p) => p.toLocaleLowerCase());
+          const match = chars
+            .map((item) => {
+              if (item === " ") {
+                return " ";
+              }
+
+              const set = stackItems[item];
+              if (!set) {
+                return "n/a";
+              }
+
+              return set[Math.floor(set.length * Math.random())];
+            })
+            .join("<br />");
+
+          resultElem.innerHTML = `<div style="background: #23242e; color: #FFF;" class="shadow text-3xl w-full sm:w-1/2 rounded p-8">${match}</div>`;
+        });
+      };
+    </script>
+  </body>
+</html>
