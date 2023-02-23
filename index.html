@@ -113,20 +113,16 @@
         items-center
       "
     >
-      <a
-        class="opacity-75 hover:opacity-100"
-        title="View the Github project for Stack Generator"
-        href="https://github.com/ganderzz/Stack-Generator"
-        ><i class="fab fa-github"></i
-      ></a>
+    <div class="text-sm">Want to add more options? <a class="opacity-75 hover:opacity-100 underline font-bold" href="https://github.com/ganderzz/Stack-Generator/blob/main/index.html#L164"><i class="fab fa-github"></i
+        > Submit a PR to update this list</a>.</div>
 
       <i
         class="
           block
           border-l border-gray-500
           text-xs
-          ml-8
-          pl-6
+          ml-4
+          pl-4
           opacity-70
           hover:opacity-100
         "
@@ -257,6 +253,8 @@
         "NoSQL",
         "Neo4j",
         "DGraph",
+        "DynamoDB",
+        "Redshift",
 
         // Operating Systems
         "Linux",
@@ -284,24 +282,32 @@
 
         function calculateStack(input) {
           if (!input) {
-            alert("Invalid input.");
+            alert("Missing a valid input (probably empty).");
             return;
           }
 
           // Grab a technology based on the characters of the text input.
           const chars = input.split("").map((p) => p.toLocaleLowerCase());
+          let localStack = structuredClone(stackItems);
+
           const match = chars
             .map((item) => {
               if (item === " ") {
                 return " ";
               }
 
-              const set = stackItems[item];
+              const set = localStack[item];
               if (!set) {
                 return "n/a";
               }
 
-              return set[Math.floor(set.length * Math.random())];
+              if (set.length === 0) {
+                return "Eh. Ran out of options..";
+              }
+
+              const index = Math.floor(set.length * Math.random());
+
+              return set.splice(index, 1)[0];
             })
             .join("<br />");
 
